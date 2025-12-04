@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+
+src/model.h5
+src/tokenizer.pkl
+
+*.ckpt
+*.ckpt.*
+
+.ipynb_checkpoints/
