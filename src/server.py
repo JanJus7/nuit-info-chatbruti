@@ -12,7 +12,7 @@ print("=== FILES IN SRC ===")
 print(os.listdir("src"))
 
 
-MODEL_PATH = "modelFouNewDatasetV1.keras"
+MODEL_PATH = "src/modelFouNewDatasetV1.keras"
 TOKENIZER_PATH = "tokenizer.pkl"
 
 app = Flask(__name__)

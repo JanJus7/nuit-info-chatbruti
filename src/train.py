@@ -9,7 +9,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 
 
 DATASET_PATH = "../dataset/dataset_chatbot_fou_20000l.txt"
-MODEL_PATH = "modelFou.keras"
+MODEL_PATH = "src/modelFou.keras"
 TOKENIZER_PATH = "tokenizer.pkl"
 
 print("GPUs disponibles :", tf.config.list_physical_devices("GPU"))

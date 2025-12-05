@@ -3,7 +3,7 @@ import pickle
 import tensorflow as tf
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-MODEL_PATH = "modelFouNewDatasetV1.keras"
+MODEL_PATH = "src/modelFouNewDatasetV1.keras"
 TOKENIZER_PATH = "tokenizer.pkl"
 
 model = tf.keras.models.load_model(MODEL_PATH)
