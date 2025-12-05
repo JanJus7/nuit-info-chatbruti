@@ -1,3 +1,5 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import numpy as np
 import pickle
 import tensorflow as tf
@@ -6,6 +8,10 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 MODEL_PATH = "modelFouNewDatasetV1.keras"
 TOKENIZER_PATH = "tokenizer.pkl"
 
+app = Flask(__name__)
+CORS(app)
+
+print("Loading model...")
 model = tf.keras.models.load_model(MODEL_PATH)
 
 with open(TOKENIZER_PATH, "rb") as f:
@@ -62,8 +68,7 @@ def sample_with_penalties(
     return next_index
 
 
-
-def generate_text(seed_text, next_words=18, temperature=1.5):
+def generate_text(seed_text, next_words=16):
     output = seed_text.lower()
     recent_tokens = []
 
@@ -88,19 +93,22 @@ def generate_text(seed_text, next_words=18, temperature=1.5):
     return output
 
 
+@app.route("/generate", methods=["POST"])
+def generate():
+    data = request.json
+    prompt = data.get("prompt", "")
+
+    if not prompt:
+        return jsonify({"error": "Empty prompt"}), 400
+
+    response = generate_text(prompt)
+    return jsonify({"response": response})
+
+
+@app.route("/", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"})
+
+
 if __name__ == "__main__":
-    print(
-        "\n\n\n\n\n\n\n\n\n-------------------------------------------------------------------------"
-    )
-    print(generate_text("pourquoi le ciel est bleu?"))
-    print()
-    print(generate_text("pourquoi le ciel est bleu?"))
-    print()
-    print(generate_text("comment lutter contre les big tech?"))
-    print()
-    print(generate_text('Pourquoi zebra est jaune?'))
-    print()
-    print(generate_text("qu'est ce que linux?"))
-    print()
-    print(generate_text('Comment cuisiner des pommes de terre?'))
-    
+    app.run(host="0.0.0.0", port=5000)

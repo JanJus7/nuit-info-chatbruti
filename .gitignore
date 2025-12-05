@@ -9,3 +9,6 @@ src/tokenizer.pkl
 *.ckpt.*
 
 .ipynb_checkpoints/
+
+*.h5
+*.keras
