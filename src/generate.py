@@ -3,7 +3,7 @@ import pickle
 import tensorflow as tf
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-MODEL_PATH = "modelFou.keras"
+MODEL_PATH = "modelFouNewDatasetV1.keras"
 TOKENIZER_PATH = "tokenizer.pkl"
 
 model = tf.keras.models.load_model(MODEL_PATH)
@@ -101,3 +101,10 @@ if __name__ == "__main__":
     print(generate_text("pourquoi le ciel est bleu?"))
     print()
     print(generate_text("comment lutter contre les big tech?"))
+    print()
+    print(generate_text('Pourquoi zebra est jaune?'))
+    print()
+    print(generate_text("qu'est ce que linux?"))
+    print()
+    print(generate_text('Comment cuisiner des pommes de terre?'))
+    
