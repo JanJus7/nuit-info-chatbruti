@@ -4,6 +4,13 @@ import numpy as np
 import pickle
 import tensorflow as tf
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import os
+
+print("=== FILES IN WORKDIR ===")
+print(os.listdir("."))
+print("=== FILES IN SRC ===")
+print(os.listdir("src"))
+
 
 MODEL_PATH = "modelFouNewDatasetV1.keras"
 TOKENIZER_PATH = "tokenizer.pkl"
