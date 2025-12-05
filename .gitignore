@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 
 src/model.h5
-src/tokenizer.pkl
+# src/tokenizer.pkl
 
 *.ckpt
 *.ckpt.*
