@@ -5,9 +5,10 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
 
 
-DATASET_PATH = "../dataset/dataset_chatbot_fou.txt"
+DATASET_PATH = "../dataset/dataset_chatbot_fou_20000l.txt"
 MODEL_PATH = "modelFou.keras"
 TOKENIZER_PATH = "tokenizer.pkl"
 
@@ -41,24 +42,34 @@ X = input_sequences[:, :-1]
 y = input_sequences[:, -1]
 
 
-model = Sequential([
-    Embedding(total_words, 128),
-    LSTM(256, return_sequences=True),
-    Dropout(0.3),
-    LSTM(256),
-    Dropout(0.3),
-    Dense(total_words, activation="softmax"),
-])
-
+model = Sequential(
+    [
+        Embedding(total_words, 256),
+        LSTM(512, return_sequences=True),
+        Dropout(0.3),
+        LSTM(512, return_sequences=True),
+        Dropout(0.3),
+        LSTM(512),
+        Dropout(0.3),
+        Dense(total_words, activation="softmax"),
+    ]
+)
 
 
 model.compile(
     loss="sparse_categorical_crossentropy", optimizer="adam", metrics=["accuracy"]
 )
 
-print("\n--- START TRAINING ---\n")
-model.fit(X, y, epochs=76, batch_size=128)
-print("\n--- TRAINING DONE ---\n")
+early_stop = EarlyStopping(monitor="loss", patience=6, restore_best_weights=True)
+
+model.fit(
+    X,
+    y,
+    epochs=50,
+    batch_size=128,
+    callbacks=[early_stop],
+)
+
 
 model.save(MODEL_PATH)
 print("Model saved to:", MODEL_PATH)
