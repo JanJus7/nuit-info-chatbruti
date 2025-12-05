@@ -12,8 +12,11 @@ print("=== FILES IN SRC ===")
 print(os.listdir("src"))
 
 
-MODEL_PATH = "src/modelFouNewDatasetV1.keras"
-TOKENIZER_PATH = "tokenizer.pkl"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "modelFouNewDatasetV1.keras")
+TOKENIZER_PATH = os.path.join(BASE_DIR, "tokenizer.pkl")
+
 
 app = Flask(__name__)
 CORS(app)
